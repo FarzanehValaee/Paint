@@ -1,66 +1,107 @@
-function faceFactory(centerPointX, centerPointY, size) {
-  return {
-    centerPointX: centerPointX,
-    centerPointY: centerPointY,
-    size: size,
-    draw() {
-      const centerPoint = {
-        x: this.centerPointX,
-        y: this.centerPointY,
-      };
-      drawCircle(centerPoint, this.size);
-    },
-  };
+
+function FaceC(centerPointX, centerPointY, size){
+  this.centerPointX= centerPointX
+  this.centerPointY=centerPointY
+  this.size=size
+  this.draw = function(){
+    const centerPoint = {
+      x: this.centerPointX,
+      y: this.centerPointY,
+    };
+    drawCircle(centerPoint, this.size);
+  }
+}
+
+// function eyeFactory(centerPointX, centerPointY, size) {
+//   return {
+//     centerPointX: centerPointX,
+//     centerPointY: centerPointY,
+//     size: size,
+//     draw() {
+//       const centerPoint = {
+//         x: this.centerPointX,
+//         y: this.centerPointY,
+//       };
+//       drawCircle(centerPoint, this.size);
+//       drawCircle(centerPoint, this.size / 3);
+//     },
+//   };
+// }
+function EyeC(centerPointX, centerPointY, size){
+  this.centerPointX=centerPointX
+  this.centerPointY=centerPointY
+  this.size=size
+  this.draw = function(){
+    const centerPoint = {
+      x: this.centerPointX,
+      y: this.centerPointY,
+    };
+    drawCircle(centerPoint, this.size);
+    drawCircle(centerPoint, this.size / 3);
+  }
+
+
+}
+// function noseFactory(centerPointX, centerPointY, size) {
+//   return {
+//     centerPointX: centerPointX,
+//     centerPointY: centerPointY,
+//     size: size,
+//     fat: 5,
+//     draw() {
+//       const startPoint = {
+//         x: this.centerPointX,
+//         y: this.centerPointY - this.size / 2,
+//       };
+//       const endPoint = {
+//         x: this.centerPointX,
+//         y: this.centerPointY + this.size / 2,
+//       };
+//       const rightCornerPoint = {
+//         x: this.centerPointX + this.fat,
+//         y: this.centerPointY + (this.size / 2 - this.fat),
+//       };
+//       const leftCornerPoint = {
+//         x: this.centerPointX - this.fat,
+//         y: this.centerPointY + (this.size / 2 - this.fat),
+//       };
+//       drawLine(startPoint, endPoint);
+//       drawLine(endPoint, rightCornerPoint);
+//       drawLine(endPoint, leftCornerPoint);
+//     },
+//   };
+// }
+function NoiseC(centerPointX, centerPointY, size){
+  this.centerPointX=centerPointX
+  this.centerPointY=centerPointY
+  this.size=size
+  this.fat = 5
+  this.draw = function(){
+    const startPoint = {
+      x: this.centerPointX,
+      y: this.centerPointY - this.size / 2,
+    };
+    const endPoint = {
+      x: this.centerPointX,
+      y: this.centerPointY + this.size / 2,
+    };
+    const rightCornerPoint = {
+      x: this.centerPointX + this.fat,
+      y: this.centerPointY + (this.size / 2 - this.fat),
+    };
+    const leftCornerPoint = {
+      x: this.centerPointX - this.fat,
+      y: this.centerPointY + (this.size / 2 - this.fat),
+    };
+    drawLine(startPoint, endPoint);
+    drawLine(endPoint, rightCornerPoint);
+    drawLine(endPoint, leftCornerPoint);
+  }
+
 }
 
 
-function eyeFactory(centerPointX, centerPointY, size) {
-  return {
-    centerPointX: centerPointX,
-    centerPointY: centerPointY,
-    size: size,
-    draw() {
-      const centerPoint = {
-        x: this.centerPointX,
-        y: this.centerPointY,
-      };
-      drawCircle(centerPoint, this.size);
-      drawCircle(centerPoint, this.size / 3);
-    },
-  };
-}
-
-function noseFactory(centerPointX, centerPointY, size) {
-  return {
-    centerPointX: centerPointX,
-    centerPointY: centerPointY,
-    size: size,
-    fat: 5,
-    draw() {
-      const startPoint = {
-        x: this.centerPointX,
-        y: this.centerPointY - this.size / 2,
-      };
-      const endPoint = {
-        x: this.centerPointX,
-        y: this.centerPointY + this.size / 2,
-      };
-      const rightCornerPoint = {
-        x: this.centerPointX + this.fat,
-        y: this.centerPointY + (this.size / 2 - this.fat),
-      };
-      const leftCornerPoint = {
-        x: this.centerPointX - this.fat,
-        y: this.centerPointY + (this.size / 2 - this.fat),
-      };
-      drawLine(startPoint, endPoint);
-      drawLine(endPoint, rightCornerPoint);
-      drawLine(endPoint, leftCornerPoint);
-    },
-  };
-}
-
-function lipFactory(centerPointX, centerPointY, size) {
+function LipC(centerPointX, centerPointY, size){
   function drawPokerFace(centerPointX, centerPointY, size) {
     const startPoint = {
       x: centerPointX - size / 2,
@@ -82,22 +123,19 @@ function lipFactory(centerPointX, centerPointY, size) {
       size / 5
     );
   }
+  this.centerPointX=centerPointX
+  this.centerPointY=centerPointY
+  this.size=size
+  this.status= "scary",
+  this.draw= function(){
+    if (this.status === "poker") {
+      drawPokerFace(this.centerPointX, this.centerPointY, this.size);
+    } else if (this.status === "scary") {
+      drawScaryFace(this.centerPointX, this.centerPointY, this.size);
+    }
+  }
 
-  return {
-    centerPointX: centerPointX,
-    centerPointY: centerPointY,
-    size: size,
-    status: "scary",
-    draw() {
-      if (this.status === "poker") {
-        drawPokerFace(this.centerPointX, this.centerPointY, this.size);
-      } else if (this.status === "scary") {
-        drawScaryFace(this.centerPointX, this.centerPointY, this.size);
-      }
-    },
-  };
 }
-
 function emojiFactory() {
   function calcEyePosition(centerFaceX, centerFaceY, side) {
     return {
@@ -114,11 +152,11 @@ function emojiFactory() {
 
   return {
     items: {
-      face: faceFactory(centerPointX, centerPointY, 100),
-      leftEye: eyeFactory(leftEyePosition.x, leftEyePosition.y, 10),
-      rightEye: eyeFactory(rightEyePosition.x, rightEyePosition.y, 10),
-      nose: noseFactory(centerPointX, centerPointY - 10, 30),
-      lips: lipFactory(centerPointX, centerPointY + 40, 80),
+      face: new FaceC(centerPointX, centerPointY, 100),
+      leftEye: new EyeC(leftEyePosition.x, leftEyePosition.y, 10),
+      rightEye: new EyeC(rightEyePosition.x, rightEyePosition.y, 10),
+      nose: new NoiseC(centerPointX, centerPointY - 10, 30),
+      lips: new LipC(centerPointX, centerPointY + 40, 80),
     },
     render() {
       clearPage();
@@ -141,7 +179,9 @@ function emojiFactory() {
     },
   };
 }
+// function EmojiC(){
 
+// }
 const myEmoji = emojiFactory();
 
 myEmoji.render();
